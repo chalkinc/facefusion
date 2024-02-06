@@ -92,7 +92,7 @@ def cli() -> None:
 	group_output_creation.add_argument('--output-video-fps', help = wording.get('output_video_fps_help'), type = float)
 	group_output_creation.add_argument('--skip-audio', help = wording.get('skip_audio_help'), action = 'store_true', default = config.get_bool_value('output_creation.skip_audio'))
 	# frame processors
-	available_frame_processors = list_directory('facefusion/processors/frame/modules')
+	available_frame_processors = list_directory('/facefusion_repo/facefusion/processors/frame/modules')
 	program = ArgumentParser(parents = [ program ], formatter_class = program.formatter_class, add_help = True)
 	group_frame_processors = program.add_argument_group('frame processors')
 	group_frame_processors.add_argument('--frame-processors', help = wording.get('frame_processors_help').format(choices = ', '.join(available_frame_processors)), default = config.get_str_list('frame_processors.frame_processors', 'face_swapper'), nargs = '+')
@@ -100,7 +100,7 @@ def cli() -> None:
 		frame_processor_module = load_frame_processor_module(frame_processor)
 		frame_processor_module.register_args(group_frame_processors)
 	# uis
-	available_ui_layouts = list_directory('facefusion/uis/layouts')
+	available_ui_layouts = list_directory('/facefusion_repo/facefusion/uis/layouts')
 	group_uis = program.add_argument_group('uis')
 	group_uis.add_argument('--ui-layouts', help = wording.get('ui_layouts_help').format(choices = ', '.join(available_ui_layouts)), default = config.get_str_list('uis.ui_layout', 'default'), nargs = '+')
 	run(program)
@@ -162,7 +162,7 @@ def apply_args(program : ArgumentParser) -> None:
 		facefusion.globals.output_video_fps = normalize_fps(args.output_video_fps) or detect_video_fps(args.target_path)
 	facefusion.globals.skip_audio = args.skip_audio
 	# frame processors
-	available_frame_processors = list_directory('facefusion/processors/frame/modules')
+	available_frame_processors = list_directory('/facefusion_repo/facefusion/processors/frame/modules')
 	facefusion.globals.frame_processors = args.frame_processors
 	for frame_processor in available_frame_processors:
 		frame_processor_module = load_frame_processor_module(frame_processor)
