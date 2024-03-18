@@ -73,7 +73,7 @@ def has_audio(audio_paths : List[str]) -> bool:
 
 
 def is_image(image_path : str) -> bool:
-	return is_file(image_path) and filetype.helpers.is_image(image_path)
+	return filetype.is_image(image_path)
 
 
 def has_image(image_paths: List[str]) -> bool:
